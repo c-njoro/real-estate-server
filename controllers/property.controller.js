@@ -3,12 +3,16 @@ const Property = require("../models/property.model");
 
 //get all properties
 const getAllProperties = async (req, res) => {
+  process.stdout.write("This should always log\n");
+
+  console.log("Its the whole thing we running");
   try {
-    const { _page, _limit } = req.params;
+    const { _page, _limit } = req.query;
 
     // If no pagination params, return all properties
     if (!_page && !_limit) {
       const properties = await Property.find().sort({ createdAt: -1 });
+      console.log("Its the first one we running");
       return res.status(200).json(properties);
     }
 
@@ -16,6 +20,8 @@ const getAllProperties = async (req, res) => {
     const page = parseInt(_page) || 1;
     const limit = parseInt(_limit) || 10;
     const skip = (page - 1) * limit;
+
+    console.log({ _page, _limit, skip, limit });
 
     const totalProperties = await Property.countDocuments();
 
@@ -63,8 +69,23 @@ const updateProperty = async (req, res) => {
   }
 };
 
+//get property by id
+const getOneProperty = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const property = await Property.findById(id);
+    if (!property) {
+      return res.status(404).json({ message: "Property not found" });
+    }
+    res.status(200).json(property);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getAllProperties,
   createAProperty,
   updateProperty,
+  getOneProperty,
 };
