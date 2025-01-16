@@ -18,7 +18,7 @@ app.use("/api/properties", propertyRoutes);
 
 // Connect to MongoDB
 mongoose
-  .connect(process.env.MONGO_DB_URI)
+  .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log("MongoDB database for real estate connected");
   })
