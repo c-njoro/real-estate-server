@@ -3,28 +3,22 @@ const Property = require("../models/property.model");
 
 //get all properties
 const getAllProperties = async (req, res) => {
-  process.stdout.write("This should always log\n");
-
-  console.log("Its the whole thing we running");
   try {
-    const { _page, _limit } = req.query;
+    const properties = await Property.find().sort({ createdAt: -1 });
+    return res.status(200).json(properties);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
-    // If no pagination params, return all properties
-    if (!_page && !_limit) {
-      const properties = await Property.find().sort({ createdAt: -1 });
-      console.log("Its the first one we running");
-      return res.status(200).json(properties);
-    }
-
-    // Handle pagination if params are provided
-    const page = parseInt(_page) || 1;
-    const limit = parseInt(_limit) || 10;
+//get paginated properties
+const getPaginatedProperties = async (req, res) => {
+  try {
+    const page = parseInt(req.query._page) || 1;
+    const limit = parseInt(req.query._limit) || 10;
     const skip = (page - 1) * limit;
 
-    console.log({ _page, _limit, skip, limit });
-
     const totalProperties = await Property.countDocuments();
-
     const properties = await Property.find()
       .skip(skip)
       .limit(limit)
@@ -41,6 +35,7 @@ const getAllProperties = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 //create a property
 const createAProperty = async (req, res) => {
   try {
@@ -88,4 +83,5 @@ module.exports = {
   createAProperty,
   updateProperty,
   getOneProperty,
+  getPaginatedProperties,
 };

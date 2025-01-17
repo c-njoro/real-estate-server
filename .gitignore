@@ -44,3 +44,4 @@ next-env.d.ts
 .env
 
 mongodb+srv://njoroge:mk9WHIaO8iXu7mk0@realestate.az8yb.mongodb.net/?retryWrites=true&w=majority&appName=realEstatemk9WHIaO8iXu7mk0
+mongodb://localhost:27017/HotelDatabase

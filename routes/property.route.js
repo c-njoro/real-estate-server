@@ -6,9 +6,11 @@ const {
   createAProperty,
   updateProperty,
   getOneProperty,
+  getPaginatedProperties,
 } = require("../controllers/property.controller");
 
 router.get("/allProperties", getAllProperties);
+router.get("/paginatedProperties", getPaginatedProperties);
 router.get("/oneProperty/:id", getOneProperty);
 router.post("/newProperty", createAProperty);
 router.put("/updateProperty/:id", updateProperty);
