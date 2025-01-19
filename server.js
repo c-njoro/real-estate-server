@@ -4,6 +4,8 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 dotenv.config();
 
+const runCronJobs = require("./cronjobs");
+
 //all routes to database
 const propertyRoutes = require("./routes/property.route");
 
@@ -21,6 +23,7 @@ mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log("MongoDB database for real estate connected");
+    runCronJobs();
   })
   .catch((error) => console.error("MongoDB connection error:", error));
 

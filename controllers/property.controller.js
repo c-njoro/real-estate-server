@@ -1,4 +1,3 @@
-const express = require("express");
 const Property = require("../models/property.model");
 
 //get all properties
