@@ -15,7 +15,15 @@ const runCronJobs = () => {
           process.env.API_ENDPOINT
         }/api/properties/paginatedProperties?_page=${1}&_limit=${10}`
       );
-      console.log("cronjob hit the backend");
+
+      console.log("Backend check taking place...");
+      if (externalResponse) {
+        console.log("Data is still available");
+
+        if (externalResponsePaginated) {
+          console.log("Data can still be paginated");
+        }
+      }
     } catch (error) {
       console.error("Error fetching external data:", error);
     }
