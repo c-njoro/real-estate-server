@@ -23,7 +23,7 @@ mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log("MongoDB database for real estate connected");
-    runCronJobs();
+    // runCronJobs();
   })
   .catch((error) => console.error("MongoDB connection error:", error));
 
